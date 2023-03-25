@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rakthseva/screens/NotificationPage.dart';
 import 'package:rakthseva/screens/profile.dart';
+import 'package:rakthseva/screens/stock.dart';
 
 import '../controller/user.dart';
+import 'form.dart';
 
 class HomePage extends StatefulWidget {
   final User userData;
@@ -106,27 +108,35 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // TODO: Implement donate blood functionality.
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DonationForm(),
+                        ));
                   },
                   child: Text('Donate Blood'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // TODO: Implement view stock functionality.
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BloodStockPage(),
+                        ));
                   },
-                  child: Text('View Stock'),
+                  child: const Text('View Stock'),
                 ),
               ],
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Request Blood',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -140,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     // TODO: Implement facts about donation functionality.
                   },
-                  child: Text('Facts about Donation'),
+                  child: const Text('Facts about Donation'),
                 ),
               ],
             ),

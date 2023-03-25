@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class BloodStockPage extends StatefulWidget {
+  const BloodStockPage({super.key});
   @override
   _BloodStockPageState createState() => _BloodStockPageState();
 }
@@ -34,39 +35,42 @@ class _BloodStockPageState extends State<BloodStockPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Blood Availability'),
+        title: const Text('Blood Availability'),
       ),
       body: SingleChildScrollView(
-        child: DataTable(
-          columns: [
-            DataColumn(label: Text('Blood Group')),
-            DataColumn(label: Text('Whole Blood')),
-            DataColumn(label: Text('Packed Cells')),
-            DataColumn(label: Text('Frozen Plasma')),
-            DataColumn(label: Text('Platelet')),
-            DataColumn(label: Text('Last Updated')),
-            DataColumn(label: Text('Location')),
-            DataColumn(label: Text('Contact')),
-          ],
-          rows: List<DataRow>.generate(
-            _bloodStockData.length,
-            (index) {
-              return DataRow(
-                cells: [
-                  DataCell(Text(_bloodStockData[index]['bloodGroup'])),
-                  DataCell(
-                      Text(_bloodStockData[index]['wholeBlood'].toString())),
-                  DataCell(
-                      Text(_bloodStockData[index]['packedCells'].toString())),
-                  DataCell(
-                      Text(_bloodStockData[index]['frozenPlasma'].toString())),
-                  DataCell(Text(_bloodStockData[index]['platelet'].toString())),
-                  DataCell(Text(_bloodStockData[index]['lastUpdated'])),
-                  DataCell(Text(_bloodStockData[index]['location'])),
-                  DataCell(Text(_bloodStockData[index]['contact'])),
-                ],
-              );
-            },
+        child: SizedBox(
+          height: 444,
+          width: 444,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+              columns: const [
+                DataColumn(label: Text('Blood Group')),
+                DataColumn(label: Text('Whole Blood')),
+                DataColumn(label: Text('Packed Cells')),
+                DataColumn(label: Text('Frozen Plasma')),
+                DataColumn(label: Text('Platelet')),
+              ],
+              rows: List<DataRow>.generate(
+                _bloodStockData.length,
+                (index) {
+                  return DataRow(
+                    cells: [
+                      DataCell(Text(
+                          _bloodStockData[index]['bloodGroup'].toString())),
+                      DataCell(Text(
+                          _bloodStockData[index]['wholeBlood'].toString())),
+                      DataCell(Text(
+                          _bloodStockData[index]['packedCells'].toString())),
+                      DataCell(Text(
+                          _bloodStockData[index]['frozenPlasma'].toString())),
+                      DataCell(
+                          Text(_bloodStockData[index]['platelet'].toString())),
+                    ],
+                  );
+                },
+              ),
+            ),
           ),
         ),
       ),
