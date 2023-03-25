@@ -40,8 +40,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Name'),
+            leading: const Icon(Icons.person),
+            title: const Text('Name'),
             subtitle: Text(widget.user.username),
           ),
           ListTile(
