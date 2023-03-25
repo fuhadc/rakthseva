@@ -97,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {},
                 child: Text('Donation History'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
