@@ -45,15 +45,15 @@ class _ProfilePageState extends State<ProfilePage> {
             subtitle: Text(widget.user.username),
           ),
           ListTile(
-            leading: Icon(Icons.email),
-            title: Text('Email'),
+            leading: const Icon(Icons.email),
+            title: const Text('Email'),
             subtitle: Text(widget.user.email),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
-                Text(
+                const Text(
                   'Dark Mode',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -73,9 +73,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          const SizedBox(height: 16.0),
+          const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Text(
               'History',
               style: TextStyle(
@@ -90,9 +90,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {
                   // navigate to your request page
                 },
-                child: Text('Your Request'),
+                child: const Text('Your Request'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {},
                 child: Text('Donation History'),
