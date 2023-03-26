@@ -83,38 +83,41 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(width: 8),
-              ElevatedButton(
-                onPressed: () {
-                  // navigate to your request page
-                },
-                child: const Text('Your Request'),
-              ),
-              const SizedBox(width: 8),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Donation History'),
-              ),
-              const SizedBox(width: 8),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PdfList(
-                          userId: widget.user.userid,
-                        ),
-                      ));
-                },
-                child: const Text('E-Certificate'),
-              ),
-            ],
+          SizedBox(
+            width: 500,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    // navigate to your request page
+                  },
+                  child: const Text('Your Request'),
+                ),
+                const SizedBox(width: 8),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Donation History'),
+                ),
+                const SizedBox(width: 8),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PdfList(
+                            userId: widget.user.userid,
+                          ),
+                        ));
+                  },
+                  child: const Text('E-Certificate'),
+                ),
+              ],
+            ),
           )
         ],
       ),
