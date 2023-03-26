@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+ 
 class BloodRequestPage extends StatefulWidget {
   @override
   _BloodRequestPageState createState() => _BloodRequestPageState();
@@ -65,8 +66,7 @@ class _BloodRequestPageState extends State<BloodRequestPage> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                decoration:
-                    const InputDecoration(labelText: 'Phone Number'),
+                decoration: const InputDecoration(labelText: 'Phone Number'),
                 keyboardType: TextInputType.phone,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -123,4 +123,87 @@ class _BloodRequestPageState extends State<BloodRequestPage> {
               const SizedBox(height: 16),
               const Text('Blood Group Required:'),
               DropdownButtonFormField(
-                value
+                value: _bloodGroup,
+                items: [
+                  DropdownMenuItem(child: const Text('A+'), value: 'A+'),
+                  DropdownMenuItem(child: const Text('A-'), value: 'A-'),
+                  DropdownMenuItem(child: const Text('B+'), value: 'B+'),
+                  DropdownMenuItem(child: const Text('B-'), value: 'B-'),
+                  DropdownMenuItem(child: const Text('O+'), value: 'O+'),
+                  DropdownMenuItem(child: const Text('O-'), value: 'O-'),
+                  DropdownMenuItem(child: const Text('AB+'), value: 'AB+'),
+                  DropdownMenuItem(child: const Text('AB-'), value: 'AB-'),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    _bloodGroup = value.toString();
+                  });
+                },
+                decoration: const InputDecoration(
+                  hintText: 'Select Blood Group',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                ),
+              ),
+              const SizedBox(height: 16),
+              DateTimeField(
+                decoration: const InputDecoration(
+                  hintText: 'Select Date and Time Required',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                ),
+                format: DateFormat('dd-MM-yyyy HH:mm'),
+                onShowPicker: (context, currentValue) async {
+                  final date = await showDatePicker(
+                    context: context,
+                    initialDate: currentValue ?? DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100),
+                  );
+                  if (date != null) {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.fromDateTime(
+                          currentValue ?? DateTime.now()),
+                    );
+                    return DateTimeField.combine(date, time);
+                  } else {
+                    return currentValue;
+                  }
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _addressController,
+                decoration: const InputDecoration(
+                  hintText: 'Enter Address',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Address is Required';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // Perform blood request
+                    print('Blood Group Required: $_bloodGroup');
+                    print('Date and Time Required: $_dateTimeRequired');
+                    print('Address: ${_addressController.text}');
+                    // TODO: Add logic to submit blood request
+                  }
+                },
+                child: const Text('Submit'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
