@@ -110,7 +110,7 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
                     groupValue: _gender,
                     onChanged: (value) {
                       setState(() {
-                        _gender = value;
+                        _gender = value!;
                       });
                     },
                   ),
