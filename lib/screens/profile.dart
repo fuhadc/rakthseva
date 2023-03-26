@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../controller/user.dart';
 import 'certificate.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -18,10 +17,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Profile'),
+        title: const Text('My Profile'),
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {},
           ),
         ],
@@ -84,19 +83,24 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ),
-          Row(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              const SizedBox(width: 8),
               ElevatedButton(
                 onPressed: () {
                   // navigate to your request page
                 },
                 child: const Text('Your Request'),
               ),
+              const SizedBox(width: 8),
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {},
-                child: Text('Donation History'),
+                child: const Text('Donation History'),
               ),
+              const SizedBox(width: 8),
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
@@ -108,7 +112,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ));
                 },
-                child: Text('E-Certificate'),
+                child: const Text('E-Certificate'),
               ),
             ],
           )
