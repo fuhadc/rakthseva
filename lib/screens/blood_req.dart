@@ -1,206 +1,215 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
- 
-class BloodRequestPage extends StatefulWidget {
+
+class MyForm extends StatefulWidget {
+  const MyForm({Key? key}) : super(key: key);
+
   @override
-  _BloodRequestPageState createState() => _BloodRequestPageState();
+  _MyFormState createState() => _MyFormState();
 }
 
-class _BloodRequestPageState extends State<BloodRequestPage> {
+class _MyFormState extends State<MyForm> {
   final _formKey = GlobalKey<FormState>();
-  String? _patientName;
-  String? _phoneNumber;
-  String? _address;
-  String? _gender;
-  String? _bloodGroup;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController();
+
+  String _gender = 'Male';
+  String _bloodGroup = 'A+';
+  int _unit = 1;
   DateTime? _dateTime;
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: _dateTime ?? DateTime.now(),
-        firstDate: DateTime(1900),
-        lastDate: DateTime.now());
-    if (picked != null && picked != _dateTime) {
-      setState(() {
-        _dateTime = picked;
-      });
-    }
-  }
-
-  Future<void> _submit() async {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // Send the request to the server
-      print('Patient Name: $_patientName');
-      print('Phone Number: $_phoneNumber');
-      print('Address: $_address');
-      print('Gender: $_gender');
-      print('Blood Group Required: $_bloodGroup');
-      print('Date and Time Required: $_dateTime');
+      // send form data to REST API
+      // example code for sending data using http package
+      // await http.post(
+      //   Uri.parse('https://example.com/api/submit'),
+      //   body: {
+      //     'name': _nameController.text,
+      //     'phone': _phoneController.text,
+      //     'address': _addressController.text,
+      //     'dob': _dobController.text,
+      //     'gender': _gender,
+      //     'bloodGroup': _bloodGroup,
+      //     'unit': _unit.toString(),
+      //     'dateTime': _dateTime.toString(),
+      //   },
+      // );
+     
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Blood Request'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Patient Name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter patient name';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _patientName = value,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Phone Number'),
-                keyboardType: TextInputType.phone,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter phone number';
-                  }
-                  if (value.length < 10) {
-                    return 'Please enter a valid phone number';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _phoneNumber = value,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Address'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter address';
-                  }
-                  return null;
-                },
-                onSaved: (value) => _address = value,
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Gender',
-                style: TextStyle(fontSize: 16),
-              ),
-              Row(
-                children: [
-                  const Text('Male'),
-                  Radio<String>(
-                    value: 'Male',
-                    groupValue: _gender,
-                    onChanged: (value) {
-                      setState(() {
-                        _gender = value!;
-                      });
-                    },
+      appBar: AppBar(title: Text('Blood Request Form')),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    labelText: 'Patient Name',
                   ),
-                  const SizedBox(width: 16),
-                  const Text('Female'),
-                  Radio<String>(
-                    value: 'Female',
-                    groupValue: _gender,
-                    onChanged: (value) {
-                      setState(() {
-                        _gender = value!;
-                      });
-                    },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter Patient Name';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _phoneController,
+                  decoration: InputDecoration(
+                    labelText: 'Phone Number',
                   ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Blood Group Required:'),
-              DropdownButtonFormField(
-                value: _bloodGroup,
-                items: [
-                  DropdownMenuItem(child: const Text('A+'), value: 'A+'),
-                  DropdownMenuItem(child: const Text('A-'), value: 'A-'),
-                  DropdownMenuItem(child: const Text('B+'), value: 'B+'),
-                  DropdownMenuItem(child: const Text('B-'), value: 'B-'),
-                  DropdownMenuItem(child: const Text('O+'), value: 'O+'),
-                  DropdownMenuItem(child: const Text('O-'), value: 'O-'),
-                  DropdownMenuItem(child: const Text('AB+'), value: 'AB+'),
-                  DropdownMenuItem(child: const Text('AB-'), value: 'AB-'),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    _bloodGroup = value.toString();
-                  });
-                },
-                decoration: const InputDecoration(
-                  hintText: 'Select Blood Group',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter Phone Number';
+                    }
+                    return null;
+                  },
                 ),
-              ),
-              const SizedBox(height: 16),
-              DateTimeField(
-                decoration: const InputDecoration(
-                  hintText: 'Select Date and Time Required',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                TextFormField(
+                  controller: _addressController,
+                  decoration: InputDecoration(
+                    labelText: 'Address',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter Address';
+                    }
+                    return null;
+                  },
                 ),
-                format: DateFormat('dd-MM-yyyy HH:mm'),
-                onShowPicker: (context, currentValue) async {
-                  final date = await showDatePicker(
-                    context: context,
-                    initialDate: currentValue ?? DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2100),
-                  );
-                  if (date != null) {
-                    final time = await showTimePicker(
-                      context: context,
-                      initialTime: TimeOfDay.fromDateTime(
-                          currentValue ?? DateTime.now()),
+                TextFormField(
+                  controller: _dobController,
+                  keyboardType: TextInputType.datetime,
+                  decoration: InputDecoration(
+                    labelText: 'Date of Birth',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter Date of Birth';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
+                Text('Gender'),
+                Row(
+                  children: <Widget>[
+                    Radio(
+                      value: 'Male',
+                      groupValue: _gender,
+                      onChanged: (value) {
+                        setState(() {
+                          _gender = value.toString();
+                        });
+                      },
+                    ),
+                    Text('Male'),
+                    Radio(
+                      value: 'Female',
+                      groupValue: _gender,
+                      onChanged: (value) {
+                        setState(() {
+                          _gender = value.toString();
+                        });
+                      },
+                    ),
+                    Text('Female'),
+                  ],
+                ),
+                SizedBox(height: 16),
+                Text('Blood Group'),
+                SizedBox(
+                  width: 8,
+                ),
+                DropdownButton<String>(
+                  value: _bloodGroup,
+                  onChanged: (value) {
+                    setState(() {
+                      _bloodGroup = value!;
+                    });
+                  },
+                  items: <String>[
+                    'A+',
+                    'B+',
+                    'O+',
+                    'AB+',
+                    'A-',
+                    'B-',
+                    'O-',
+                    'AB-'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
                     );
-                    return DateTimeField.combine(date, time);
-                  } else {
-                    return currentValue;
-                  }
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _addressController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter Address',
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                  }).toList(),
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Address is Required';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Perform blood request
-                    print('Blood Group Required: $_bloodGroup');
-                    print('Date and Time Required: $_dateTimeRequired');
-                    print('Address: ${_addressController.text}');
-                    // TODO: Add logic to submit blood request
-                  }
-                },
-                child: const Text('Submit'),
-              ),
-            ],
+                SizedBox(height: 16),
+                Text('Unit Required'),
+                Slider(
+                  value: _unit.toDouble(),
+                  min: 1,
+                  max: 10,
+                  divisions: 9,
+                  label: _unit.toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _unit = value.toInt();
+                    });
+                  },
+                ),
+                SizedBox(height: 16),
+                Text('Date and Time Required'),
+                ElevatedButton(
+                  onPressed: () async {
+                    final DateTime? dateTime = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100),
+                    );
+                    if (dateTime != null) {
+                      final TimeOfDay? timeOfDay = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if (timeOfDay != null) {
+                        setState(() {
+                          _dateTime = DateTime(
+                            dateTime.year,
+                            dateTime.month,
+                            dateTime.day,
+                            timeOfDay.hour,
+                            timeOfDay.minute,
+                          );
+                        });
+                      }
+                    }
+                  },
+                  child: Text(
+                    _dateTime == null
+                        ? 'Select Date and Time'
+                        : '${_dateTime!.day}/${_dateTime!.month}/${_dateTime!.year} ${_dateTime!.hour}:${_dateTime!.minute}',
+                  ),
+                ),
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: _submitForm,
+                  child: Text('Submit'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

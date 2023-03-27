@@ -4,6 +4,7 @@ import 'package:rakthseva/screens/profile.dart';
 import 'package:rakthseva/screens/stock.dart';
 
 import '../controller/user.dart';
+import 'blood_req.dart';
 import 'form.dart';
 
 class HomePage extends StatefulWidget {
@@ -142,6 +143,11 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyForm(),
+                        ));
                     // TODO: Implement request blood functionality.
                   },
                   child: Text('Request Blood'),
