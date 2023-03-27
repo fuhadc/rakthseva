@@ -36,7 +36,6 @@ class _MyFormState extends State<MyForm> {
       //     'dateTime': _dateTime.toString(),
       //   },
       // );
-     
     }
   }
 
@@ -127,7 +126,10 @@ class _MyFormState extends State<MyForm> {
                     Text('Female'),
                   ],
                 ),
-                SizedBox(height: 16),
+                SizedBox(
+                  height: 16,
+                  width: 16,
+                ),
                 Text('Blood Group'),
                 SizedBox(
                   width: 8,
