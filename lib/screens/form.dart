@@ -143,7 +143,7 @@ class _DonationFormState extends State<DonationForm> {
                   const Text('Female'),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _submitForm,
                 child: const Text('Register'),
