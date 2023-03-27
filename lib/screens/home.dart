@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rakthseva/screens/Location.dart';
 import 'package:rakthseva/screens/NotificationPage.dart';
 import 'package:rakthseva/screens/profile.dart';
 import 'package:rakthseva/screens/stock.dart';
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<List<String>> _fetchImages() async {
-    await Future.delayed(Duration(seconds: 2)); // Simulate network delay
+    await Future.delayed(const Duration(seconds: 2)); // Simulate network delay
     return [
       'https://via.placeholder.com/500x250',
       'https://via.placeholder.com/500x251',
@@ -65,6 +66,19 @@ class _HomePageState extends State<HomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ProfilePage(user: widget.userData),
+                  )
+                  // TODO: Implement profile functionality.
+                  );
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.navigation),
+            onPressed: () {
+              print(widget.userData.getUserDetails());
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LocationPage(),
                   )
                   // TODO: Implement profile functionality.
                   );

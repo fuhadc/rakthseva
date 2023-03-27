@@ -42,7 +42,7 @@ class _MyFormState extends State<MyForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Blood Request Form')),
+      appBar: AppBar(title: const Text('Blood Request Form')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
