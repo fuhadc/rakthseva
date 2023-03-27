@@ -31,11 +31,11 @@ class _DonationFormState extends State<DonationForm> {
       if (response.statusCode == 200) {
         // Success!
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Registration successful!')),
+          const SnackBar(content: Text('Registration successful!')),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Registration failed.')),
+          const SnackBar(content: Text('Registration failed.')),
         );
       }
     }
@@ -44,17 +44,17 @@ class _DonationFormState extends State<DonationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Donation Form')),
+      appBar: AppBar(title: const Text('Donation Form')),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Your Name'),
+                decoration: const InputDecoration(labelText: 'Your Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your name.';
@@ -62,10 +62,10 @@ class _DonationFormState extends State<DonationForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _phoneNumberController,
-                decoration: InputDecoration(labelText: 'Phone Number'),
+                decoration: const InputDecoration(labelText: 'Phone Number'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -74,10 +74,10 @@ class _DonationFormState extends State<DonationForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _addressController,
-                decoration: InputDecoration(labelText: 'Address'),
+                decoration: const InputDecoration(labelText: 'Address'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your address.';
@@ -85,10 +85,10 @@ class _DonationFormState extends State<DonationForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _dateOfBirthController,
-                decoration: InputDecoration(labelText: 'Date of Birth'),
+                decoration: const InputDecoration(labelText: 'Date of Birth'),
                 keyboardType: TextInputType.datetime,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -97,16 +97,17 @@ class _DonationFormState extends State<DonationForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _medicalHistoryController,
-                decoration: InputDecoration(labelText: 'Medical History'),
+                decoration: const InputDecoration(labelText: 'Medical History'),
                 maxLines: null,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _lastDonationDateController,
-                decoration: InputDecoration(labelText: 'Last Donation Date'),
+                decoration:
+                    const InputDecoration(labelText: 'Last Donation Date'),
                 keyboardType: TextInputType.datetime,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -115,7 +116,7 @@ class _DonationFormState extends State<DonationForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text('Gender', style: Theme.of(context).textTheme.titleMedium),
               Row(
                 children: [
@@ -128,8 +129,8 @@ class _DonationFormState extends State<DonationForm> {
                       });
                     },
                   ),
-                  Text('Male'),
-                  SizedBox(width: 16),
+                  const Text('Male'),
+                  const SizedBox(width: 16),
                   Radio<String>(
                     value: 'Female',
                     groupValue: _gender,
@@ -139,13 +140,13 @@ class _DonationFormState extends State<DonationForm> {
                       });
                     },
                   ),
-                  Text('Female'),
+                  const Text('Female'),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Register'),
+                child: const Text('Register'),
               ),
             ],
           ),
