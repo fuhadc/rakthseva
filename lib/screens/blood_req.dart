@@ -208,7 +208,7 @@ class _MyFormState extends State<MyForm> {
                 SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: _submitForm,
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                 ),
               ],
             ),

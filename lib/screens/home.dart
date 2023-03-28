@@ -44,10 +44,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Blood Donation'),
+        title: const Text('Blood Donation'),
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications),
+            icon: const Icon(Icons.notifications),
             onPressed: () {
               var userId = "2";
               Navigator.push(
@@ -59,9 +59,9 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
             onPressed: () {
-              print(widget.userData.getUserDetails());
+              debugPrint(widget.userData.getUserDetails());
               Navigator.push(
                   context,
                   MaterialPageRoute(
