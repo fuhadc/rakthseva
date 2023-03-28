@@ -66,22 +66,17 @@ class _HomePageState extends State<HomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ProfilePage(user: widget.userData),
-                  )
-                  // TODO: Implement profile functionality.
-                  );
+                  ));
             },
           ),
           IconButton(
             icon: Icon(Icons.navigation),
             onPressed: () {
-              print(widget.userData.getUserDetails());
               Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => LocationPage(),
-                  )
-                  // TODO: Implement profile functionality.
-                  );
+                  ));
             },
           ),
         ],

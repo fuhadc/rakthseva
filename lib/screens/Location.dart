@@ -6,29 +6,27 @@ class LocationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Location & Contact'),
+        title: const Text('Location & Contact'),
       ),
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              child: GoogleMap(
-                initialCameraPosition: const CameraPosition(
-                  target: LatLng(12.994180, 77.590610),
-                  zoom: 16,
-                ),
-                markers: {
-                  const Marker(
-                    markerId: MarkerId('Jain Hospital'),
-                    position: LatLng(12.994180, 77.590610),
-                    infoWindow: InfoWindow(
-                      title: 'Bhagwan Mahaveer Jain Hospital',
-                      snippet:
-                          'Jain Hospital Millers Road, Vasanth Nagar, Bangalore, Karnataka 560052',
-                    ),
-                  ),
-                },
+            child: GoogleMap(
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(12.994180, 77.590610),
+                zoom: 16,
               ),
+              markers: {
+                const Marker(
+                  markerId: MarkerId('Jain Hospital'),
+                  position: LatLng(12.994180, 77.590610),
+                  infoWindow: InfoWindow(
+                    title: 'Bhagwan Mahaveer Jain Hospital',
+                    snippet:
+                        'Jain Hospital Millers Road, Vasanth Nagar, Bangalore, Karnataka 560052',
+                  ),
+                ),
+              },
             ),
           ),
           Container(
