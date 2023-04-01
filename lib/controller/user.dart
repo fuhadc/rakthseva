@@ -11,7 +11,7 @@ class User {
       required this.password,
       this.email,
       this.firstName,
-      this.lastName,
+      this.lastName, 
       required this.userid});
 
   getUserDetails() {
