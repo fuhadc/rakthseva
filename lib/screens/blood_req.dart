@@ -21,8 +21,7 @@ class _MyFormState extends State<MyForm> {
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      // send form data to REST API
-      // example code for sending data using http package
+
       // await http.post(
       //   Uri.parse('https://example.com/api/submit'),
       //   body: {
