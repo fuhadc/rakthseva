@@ -30,27 +30,27 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('your-api-endpoint/register'),
+        Uri.parse('http://192.168.166.22:5555/register'),
         body: user.toJson(),
       );
 
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Registration successful!'),
           ),
         );
         Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Registration failed. Please try again.'),
           ),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('An error occurred. Please try again later.'),
         ),
       );
@@ -131,7 +131,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             email: _emailController.text.trim(),
                             firstName: _firstNameController.text.trim(),
                             lastName: _lastNameController.text.trim(),
-                            userid: '1',
                           );
 
                           _register(user);

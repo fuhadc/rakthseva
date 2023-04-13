@@ -4,15 +4,15 @@ class User {
   final String? email;
   final String? firstName;
   final String? lastName;
-  final String userid; // add this field
+  final String? userid; // add this field
 
   User(
       {required this.username,
       required this.password,
       this.email,
       this.firstName,
-      this.lastName, 
-      required this.userid});
+      this.lastName,
+      this.userid});
 
   getUserDetails() {
     return {

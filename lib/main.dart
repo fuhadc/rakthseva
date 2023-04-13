@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'controller/user.dart';
-import 'screens/home.dart';
+import 'package:rakthseva/widget/register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,13 +11,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final usr = User(
-        userid: 'aasdasd',
-        username: 'asdfadfasdf',
-        password: 'asdfasdfdfs',
-        firstName: "asdsad",
-        lastName: "Asdasd",
-        email: "Dasfasdfdfs@fsdf.cdfssd");
+    // final usr = User(
+    //     userid: 'aasdasd',
+    //     username: 'asdfadfasdf',
+    //     password: 'asdfasdfdfs',
+    //     firstName: "asdsad",
+    //     lastName: "Asdasd",
+    //     email: "Dasfasdfdfs@fsdf.cdfssd");
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -42,9 +41,10 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: HomePage(
-        userData: usr,
-      ),
+      home: const RegisterPage(),
+      //  HomePage(
+      //   userData: usr,
+      // ),
     );
   }
 }
