@@ -52,7 +52,7 @@ class _MyFormState extends State<MyForm> {
               children: <Widget>[
                 TextFormField(
                   controller: _nameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Patient Name',
                   ),
                   validator: (value) {
@@ -64,7 +64,7 @@ class _MyFormState extends State<MyForm> {
                 ),
                 TextFormField(
                   controller: _phoneController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Phone Number',
                   ),
                   validator: (value) {
@@ -76,7 +76,7 @@ class _MyFormState extends State<MyForm> {
                 ),
                 TextFormField(
                   controller: _addressController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Address',
                   ),
                   validator: (value) {
