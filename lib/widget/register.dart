@@ -39,10 +39,13 @@ class _RegisterPageState extends State<RegisterPage> {
       );
 
       if (response.statusCode == 200) {
+          Navigator.push(
+                  context,
         MaterialPageRoute(
           builder: (context) => HomePage(
             userData: user,
           ),
+        )
         );
         Navigator.pop(context);
       } else {
