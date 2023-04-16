@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,7 +33,7 @@ class _MyFormState extends State<MyForm> {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: {
+        body: jsonEncode({
           'name': _nameController.text,
           'phone': _phoneController.text,
           'address': _addressController.text,
@@ -40,7 +42,7 @@ class _MyFormState extends State<MyForm> {
           'bloodGroup': _bloodGroup,
           'unit': _unit.toString(),
           'dateTime': _dateTime.toString(),
-        },
+        }), // encode the data as a JSON string
       );
 
       if (response.statusCode == 200) {
