@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:rakthseva/screens/home.dart';
 import 'package:uuid/uuid.dart';
@@ -30,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       final response = await http.post(
         Uri.parse('http://192.168.1.11:5555/register'),
-        body: user.toJson(),
+        body: json.encode(user.toJson()),
       );
 
       if (response.statusCode == 200) {
