@@ -25,5 +25,15 @@ class User {
     };
   }
 
-  Object? toJson() {}
+  Map<String, dynamic> toJson() {
+    // define the toJson method
+    return {
+      'username': username,
+      'password': password,
+      'email': email,
+      'firstName': firstName,
+      'lastName': lastName,
+      'userid': userid,
+    };
+  }
 }
