@@ -35,17 +35,16 @@ class _RegisterPageState extends State<RegisterPage> {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: json.encode(user.toJson()),
+        body: jsonEncode(user.toJson()),
       );
 
       if (response.statusCode == 200) {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomePage(
-                userData: user,
-              ),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(userData: user),
+          ),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
