@@ -25,7 +25,7 @@ class _MyFormState extends State<MyForm> {
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       await http.post(
-        Uri.parse('https://example.com/api/pdfs?userId=${widget.userId}'),
+        Uri.parse('http://192.168.1.11:5555/bloodReq?userId=${widget.userId}'),
         body: {
           'name': _nameController.text,
           'phone': _phoneController.text,

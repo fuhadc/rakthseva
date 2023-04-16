@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rakthseva/screens/home.dart';
 
 import '../controller/user.dart';
 import 'package:http/http.dart' as http;
@@ -28,23 +29,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.166.22:5555/register'),
+        Uri.parse('http://192.168.1.11:5555/register'),
         body: user.toJson(),
       );
 
       if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Registration successful!'),
-          ),
-        );
-        Navigator.pop(context);
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Registration failed. Please try again.'),
-          ),
-        );
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => HomePage(userData: user)));
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
