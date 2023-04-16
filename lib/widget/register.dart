@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rakthseva/screens/home.dart';
-
+import 'package:uuid/uuid.dart';
 import '../controller/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -130,7 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             email: _emailController.text.trim(),
                             firstName: _firstNameController.text.trim(),
                             lastName: _lastNameController.text.trim(),
-                            userid: '',
+                            userid: Uuid().v4(),
                           );
 
                           _register(user);
