@@ -49,11 +49,11 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
-              var userId = "2";
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => NotificationPage(userId: userId),
+                  builder: (context) =>
+                      NotificationPage(userId: widget.userData.userid),
                 ),
               );
             },
@@ -155,7 +155,8 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MyForm(),
+                          builder: (context) =>
+                              MyForm(userId: widget.userData.userid),
                         ));
                     // TODO: Implement request blood functionality.
                   },

@@ -4,7 +4,7 @@ class User {
   final String? email;
   final String? firstName;
   final String? lastName;
-  final String? userid; // add this field
+  final String userid; // add this field
 
   User(
       {required this.username,
@@ -12,7 +12,7 @@ class User {
       this.email,
       this.firstName,
       this.lastName,
-      this.userid});
+      required this.userid});
 
   getUserDetails() {
     return {

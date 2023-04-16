@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class MyForm extends StatefulWidget {
-  const MyForm({Key? key}) : super(key: key);
+  final String userId;
+
+  const MyForm({super.key, required this.userId});
 
   @override
   _MyFormState createState() => _MyFormState();
@@ -21,20 +24,19 @@ class _MyFormState extends State<MyForm> {
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-
-      // await http.post(
-      //   Uri.parse('https://example.com/api/submit'),
-      //   body: {
-      //     'name': _nameController.text,
-      //     'phone': _phoneController.text,
-      //     'address': _addressController.text,
-      //     'dob': _dobController.text,
-      //     'gender': _gender,
-      //     'bloodGroup': _bloodGroup,
-      //     'unit': _unit.toString(),
-      //     'dateTime': _dateTime.toString(),
-      //   },
-      // );
+      await http.post(
+        Uri.parse('https://example.com/api/pdfs?userId=${widget.userId}'),
+        body: {
+          'name': _nameController.text,
+          'phone': _phoneController.text,
+          'address': _addressController.text,
+          'dob': _dobController.text,
+          'gender': _gender,
+          'bloodGroup': _bloodGroup,
+          'unit': _unit.toString(),
+          'dateTime': _dateTime.toString(),
+        },
+      );
     }
   }
 

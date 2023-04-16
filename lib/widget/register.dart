@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../controller/user.dart';
@@ -130,6 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             email: _emailController.text.trim(),
                             firstName: _firstNameController.text.trim(),
                             lastName: _lastNameController.text.trim(),
+                            userid: '',
                           );
 
                           _register(user);
