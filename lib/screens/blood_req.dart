@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'compleation.dart';
+
 class MyForm extends StatefulWidget {
   final String userId;
 
@@ -24,7 +26,7 @@ class _MyFormState extends State<MyForm> {
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      await http.post(
+      final response = await http.post(
         Uri.parse('http://192.168.1.11:5555/bloodReq?userId=${widget.userId}'),
         body: {
           'name': _nameController.text,
@@ -37,6 +39,16 @@ class _MyFormState extends State<MyForm> {
           'dateTime': _dateTime.toString(),
         },
       );
+
+      if (response.statusCode == 200) {
+        // Navigate to SubmissionScreen
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SubmissionScreen(),
+          ),
+        );
+      }
     }
   }
 
