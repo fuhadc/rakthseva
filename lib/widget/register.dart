@@ -32,6 +32,9 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       final response = await http.post(
         Uri.parse('http://192.168.1.11:5555/register'),
+        headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
         body: json.encode(user.toJson()),
       );
 
