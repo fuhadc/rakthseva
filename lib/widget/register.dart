@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(user.toJson()),
+        body: jsonEncode(user),
       );
 
       if (response.statusCode == 200) {
