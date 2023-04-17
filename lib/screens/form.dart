@@ -25,7 +25,7 @@ class _DonationFormState extends State<DonationForm> {
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       final url =
-          'http://192.168.1.11:5555/bloodReq?userId=${widget.user.userid}';
+          'http://192.168.1.11:5555//donate?userId=${widget.user.userid}';
       final response = await http.post(Uri.parse(url),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
