@@ -62,7 +62,6 @@ class _MyFormState extends State<MyForm> {
     return Scaffold(
       appBar: AppBar(title: const Text('Blood Request Form')),
       body: SingleChildScrollView(
-        child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Form(
@@ -234,7 +233,7 @@ class _MyFormState extends State<MyForm> {
             ),
           ),
         ),
-      ),
+   
     );
   }
 }
