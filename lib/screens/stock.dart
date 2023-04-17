@@ -19,12 +19,12 @@ class _BloodStockPageState extends State<BloodStockPage> {
 
   Future<void> _fetchBloodStockData() async {
     final response =
-        await http.get(Uri.parse('https://example.com/api/bloodstock'));
+        await http.get(Uri.parse('http://192.168.1.11:5555/bloodstock'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         _bloodStockData =
-            List<Map<String, dynamic>>.from(data['bloodStockData']);
+            Map<String, dynamic>.from(data) as List<Map<String, dynamic>>;
       });
     } else {
       throw Exception('Failed to load blood stock data');
