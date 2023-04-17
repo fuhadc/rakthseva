@@ -24,8 +24,7 @@ class _DonationFormState extends State<DonationForm> {
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      final url =
-          'http://192.168.1.11:5555//donate?userId=${widget.user.userid}';
+      final url = 'http://192.168.1.11:5555//donate';
       final response = await http.post(Uri.parse(url),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
@@ -38,6 +37,7 @@ class _DonationFormState extends State<DonationForm> {
             'medical_history': _medicalHistoryController.text,
             'last_donation_date': _lastDonationDateController.text,
             'gender': _gender,
+            'useriD': widget.user.userid,
           }));
 
       if (response.statusCode == 201) {
