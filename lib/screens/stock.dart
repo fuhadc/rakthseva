@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class BloodStockPage extends StatefulWidget {
-  const BloodStockPage({super.key});
+  const BloodStockPage({Key? key}) : super(key: key);
   @override
   _BloodStockPageState createState() => _BloodStockPageState();
 }
@@ -21,10 +21,9 @@ class _BloodStockPageState extends State<BloodStockPage> {
     final response =
         await http.get(Uri.parse('http://192.168.1.11:5555/bloodstock'));
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final data = jsonDecode(response.body)['bloodStockData'];
       setState(() {
-        _bloodStockData =
-            Map<String, dynamic>.from(data) as List<Map<String, dynamic>>;
+        _bloodStockData = List<Map<String, dynamic>>.from(data);
       });
     } else {
       throw Exception('Failed to load blood stock data');
