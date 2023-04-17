@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'compleation.dart';
 
 class DonationForm extends StatefulWidget {
   @override
@@ -19,19 +23,27 @@ class _DonationFormState extends State<DonationForm> {
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
       final url = 'https://example.com/api/donations';
-      final response = await http.post(Uri.parse(url), body: {
-        'name': _nameController.text,
-        'phone_number': _phoneNumberController.text,
-        'address': _addressController.text,
-        'date_of_birth': _dateOfBirthController.text,
-        'medical_history': _medicalHistoryController.text,
-        'last_donation_date': _lastDonationDateController.text,
-        'gender': _gender,
-      });
-      if (response.statusCode == 200) {
+      final response = await http.post(Uri.parse(url),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode({
+            'name': _nameController.text,
+            'phone_number': _phoneNumberController.text,
+            'address': _addressController.text,
+            'date_of_birth': _dateOfBirthController.text,
+            'medical_history': _medicalHistoryController.text,
+            'last_donation_date': _lastDonationDateController.text,
+            'gender': _gender,
+          }));
+
+      if (response.statusCode == 201) {
         // Success!
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Registration successful!')),
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SubmissionScreen(),
+          ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
