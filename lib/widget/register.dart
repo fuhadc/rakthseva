@@ -72,78 +72,80 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         title: Text('Register'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                controller: _usernameController,
-                decoration: const InputDecoration(labelText: 'Username'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username.';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password.';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email.';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _firstNameController,
-                decoration: InputDecoration(labelText: 'First Name'),
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _lastNameController,
-                decoration: InputDecoration(labelText: 'Last Name'),
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _isLoading
-                    ? null
-                    : () {
-                        if (_formKey.currentState!.validate()) {
-                          final user = User(
-                            username: _usernameController.text.trim(),
-                            password: _passwordController.text.trim(),
-                            email: _emailController.text.trim(),
-                            firstName: _firstNameController.text.trim(),
-                            lastName: _lastNameController.text.trim(),
-                            userid: Uuid().v4(),
-                          );
+      body: Scrollbar(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(labelText: 'Username'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your username.';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password.';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(labelText: 'Email'),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email.';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: _firstNameController,
+                  decoration: InputDecoration(labelText: 'First Name'),
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: _lastNameController,
+                  decoration: InputDecoration(labelText: 'Last Name'),
+                ),
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: _isLoading
+                      ? null
+                      : () {
+                          if (_formKey.currentState!.validate()) {
+                            final user = User(
+                              username: _usernameController.text.trim(),
+                              password: _passwordController.text.trim(),
+                              email: _emailController.text.trim(),
+                              firstName: _firstNameController.text.trim(),
+                              lastName: _lastNameController.text.trim(),
+                              userid: Uuid().v4(),
+                            );
 
-                          _register(user);
-                        }
-                      },
-                child: const Text('Register'),
-              ),
-            ],
+                            _register(user);
+                          }
+                        },
+                  child: const Text('Register'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

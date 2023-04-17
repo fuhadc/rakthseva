@@ -30,8 +30,9 @@ class SubmissionScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
+                Navigator.pop(context);
               },
-              child: Text('Back to Form'),
+              child: Text('Back to Home'),
             ),
           ],
         ),
