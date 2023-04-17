@@ -45,7 +45,7 @@ class _MyFormState extends State<MyForm> {
         }), // encode the data as a JSON string
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         // Navigate to SubmissionScreen
         Navigator.push(
           context,
