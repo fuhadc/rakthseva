@@ -121,7 +121,8 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DonationForm(),
+                          builder: (context) =>
+                              DonationForm(user: widget.userData),
                         ));
                   },
                   child: Text('Donate Blood'),
