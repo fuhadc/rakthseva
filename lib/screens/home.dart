@@ -6,6 +6,7 @@ import 'package:rakthseva/screens/stock.dart';
 
 import '../controller/user.dart';
 import 'blood_req.dart';
+import 'facts.dart';
 import 'form.dart';
 
 class HomePage extends StatefulWidget {
@@ -165,6 +166,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BloodDonationFactsPage()));
+
                     // TODO: Implement facts about donation functionality.
                   },
                   child: const Text('Facts about Donation'),
