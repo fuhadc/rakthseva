@@ -42,12 +42,32 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
       body: _requests.isNotEmpty
           ? ListView.builder(
               itemCount: _requests.length,
-              itemBuilder: (context, index) {
+              itemBuilder: (BuildContext context, int index) {
                 final request = _requests[index];
-                return ListTile(
-                  title: Text(request['name']),
-                  subtitle: Text(request['bloodGroup']),
-                  trailing: Text(request['unit']),
+                return Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          request['name'],
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text('Date and Time: ${request['dateTime']}'),
+                        SizedBox(height: 8),
+                        Text('Blood Group: ${request['bloodGroup']}'),
+                        SizedBox(height: 8),
+                        Text('Address: ${request['address']}'),
+                        SizedBox(height: 8),
+                        Text('Phone: ${request['phone']}'),
+                        SizedBox(height: 8),
+                        Text('Unit: ${request['unit']}'),
+                      ],
+                    ),
+                  ),
                 );
               },
             )
