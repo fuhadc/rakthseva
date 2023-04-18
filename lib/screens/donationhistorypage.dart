@@ -24,7 +24,7 @@ class _DonationHistoryPageState extends State<DonationHistoryPage> {
   }
 
   Future<void> _loadDonationHistory() async {
-    final response = await http.get(Uri.parse('API endpoint URL'));
+    final response = await http.get(Uri.parse('http://192.168.1.11:5555'));
     final data = json.decode(response.body);
 
     setState(() {

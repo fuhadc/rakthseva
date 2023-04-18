@@ -62,7 +62,6 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
-              debugPrint(widget.userData.getUserDetails());
               Navigator.push(
                   context,
                   MaterialPageRoute(

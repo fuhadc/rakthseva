@@ -18,7 +18,7 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
 
   void _fetchRequests() async {
     final response =
-        await http.get(Uri.parse('https://example.com/api/requests'));
+        await http.get(Uri.parse('http://192.168.1.11:5555/api/requests'));
     if (response.statusCode == 200) {
       setState(() {
         _requests = json.decode(response.body);

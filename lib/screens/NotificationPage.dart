@@ -28,7 +28,7 @@ class _NotificationPageState extends State<NotificationPage> {
     });
 
     final url = Uri.parse(
-        'http://192.168.166.22:5555/api/notifications?userId=${widget.userId}');
+        'http://192.168.1.11:5555/api/notifications?userId=${widget.userId}');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
