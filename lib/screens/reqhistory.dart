@@ -13,7 +13,7 @@ class RequestHistoryPage extends StatefulWidget {
 }
 
 class _RequestHistoryPageState extends State<RequestHistoryPage> {
-  List<dynamic> _requests = [];
+  late final Map<String, dynamic> _requests;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
           ? ListView.builder(
               itemCount: _requests.length,
               itemBuilder: (BuildContext context, int index) {
-                final request = _requests[index];
+                final request = _requests.values.toList()[index];
                 return Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
