@@ -22,8 +22,8 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
   }
 
   void _fetchRequests() async {
-    final response = await http.get(
-        Uri.parse('http://192.168.1.11:5555/bloodReq?userId=${widget.user}'));
+    final response = await http
+        .get(Uri.parse('http://192.168.1.11:5555/bloodReq/{widget.user}'));
     if (response.statusCode == 200) {
       setState(() {
         _requests = json.decode(response.body);
