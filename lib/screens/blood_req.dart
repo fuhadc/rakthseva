@@ -29,7 +29,7 @@ class _MyFormState extends State<MyForm> {
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       final response = await http.post(
-        Uri.parse('http://192.168.1.11:5555/bloodReq/{widget.userId}'),
+        Uri.parse('http://192.168.1.11:5555/bloodReq/userId=${widget.userId}'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
