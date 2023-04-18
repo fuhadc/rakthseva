@@ -66,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UserPage(
+                              builder: (context) => BloodRequestScreen(
                                     user: user.userid,
                                   )));
                       // navigate to your request page
