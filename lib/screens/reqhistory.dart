@@ -3,6 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class RequestHistoryPage extends StatefulWidget {
+  final dynamic user;
+  const RequestHistoryPage({
+    super.key,
+    required this.user,
+  });
   @override
   _RequestHistoryPageState createState() => _RequestHistoryPageState();
 }
@@ -17,8 +22,8 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
   }
 
   void _fetchRequests() async {
-    final response =
-        await http.get(Uri.parse('http://192.168.1.11:5555/api/requests'));
+    final response = await http.get(
+        Uri.parse('http://192.168.1.11:5555/bloodReq?userId=${widget.user}'));
     if (response.statusCode == 200) {
       setState(() {
         _requests = json.decode(response.body);

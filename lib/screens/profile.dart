@@ -66,7 +66,9 @@ class ProfilePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RequestHistoryPage()));
+                              builder: (context) => RequestHistoryPage(
+                                    user: user.userid,
+                                  )));
                       // navigate to your request page
                     },
                     child: const Text('Your Request'),
