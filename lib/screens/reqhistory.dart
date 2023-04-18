@@ -12,12 +12,17 @@ class BloodRequestScreen extends StatefulWidget {
 }
 
 class _BloodRequestScreenState extends State<BloodRequestScreen> {
+  Map<String, dynamic> userData = {};
+
   Future<Map<String, dynamic>> _fetchUserData() async {
     final response = await http
         .get(Uri.parse('http://192.168.1.11:5555/bloodReq/${widget.user}'));
 
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      setState(() {
+        userData = jsonDecode(response.body)['user_data'];
+      });
+      return userData;
     } else {
       throw Exception('Failed to fetch data from API');
     }
@@ -33,16 +38,14 @@ class _BloodRequestScreenState extends State<BloodRequestScreen> {
         future: _fetchUserData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            Map<String, dynamic>? userData = snapshot.data?['user_data'];
-
             return ListView.builder(
-              itemCount: userData?.length ?? 0,
+              itemCount: userData.length,
               itemBuilder: (context, index) {
-                var data = userData?.values.toList()[index];
+                var data = userData.values.toList()[index];
                 return ListTile(
-                  title: Text(data?['name'] ?? 'N/A'),
-                  subtitle: Text(data?['gender'] ?? 'N/A'),
-                  trailing: Text(data?['bloodGroup'] ?? 'N/A'),
+                  title: Text(data['name'] ?? 'N/A'),
+                  subtitle: Text(data['gender'] ?? 'N/A'),
+                  trailing: Text(data['bloodGroup'] ?? 'N/A'),
                 );
               },
             );
