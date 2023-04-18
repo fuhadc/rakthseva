@@ -29,7 +29,8 @@ class _MyFormState extends State<MyForm> {
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       final response = await http.post(
-        Uri.parse('http://192.168.1.11:5555/bloodReq?userId=${widget.userId}'),
+        Uri.parse(
+            'http://192.168.166.22:5555/bloodReq?userId=${widget.userId}'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -62,178 +63,177 @@ class _MyFormState extends State<MyForm> {
     return Scaffold(
       appBar: AppBar(title: const Text('Blood Request Form')),
       body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextFormField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Patient Name',
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Patient Name',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter Patient Name';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _phoneController,
+                  decoration: const InputDecoration(
+                    labelText: 'Phone Number',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter Phone Number';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _addressController,
+                  decoration: const InputDecoration(
+                    labelText: 'Address',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter Address';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _dobController,
+                  keyboardType: TextInputType.datetime,
+                  decoration: InputDecoration(
+                    labelText: 'Date of Birth',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter Date of Birth';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 16),
+                Text('Gender'),
+                Row(
+                  children: <Widget>[
+                    Radio(
+                      value: 'Male',
+                      groupValue: _gender,
+                      onChanged: (value) {
+                        setState(() {
+                          _gender = value.toString();
+                        });
+                      },
                     ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter Patient Name';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _phoneController,
-                    decoration: const InputDecoration(
-                      labelText: 'Phone Number',
+                    Text('Male'),
+                    Radio(
+                      value: 'Female',
+                      groupValue: _gender,
+                      onChanged: (value) {
+                        setState(() {
+                          _gender = value.toString();
+                        });
+                      },
                     ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter Phone Number';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _addressController,
-                    decoration: const InputDecoration(
-                      labelText: 'Address',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter Address';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _dobController,
-                    keyboardType: TextInputType.datetime,
-                    decoration: InputDecoration(
-                      labelText: 'Date of Birth',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter Date of Birth';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 16),
-                  Text('Gender'),
-                  Row(
-                    children: <Widget>[
-                      Radio(
-                        value: 'Male',
-                        groupValue: _gender,
-                        onChanged: (value) {
-                          setState(() {
-                            _gender = value.toString();
-                          });
-                        },
-                      ),
-                      Text('Male'),
-                      Radio(
-                        value: 'Female',
-                        groupValue: _gender,
-                        onChanged: (value) {
-                          setState(() {
-                            _gender = value.toString();
-                          });
-                        },
-                      ),
-                      Text('Female'),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 16,
-                    width: 16,
-                  ),
-                  Text('Blood Group'),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  DropdownButton<String>(
-                    value: _bloodGroup,
-                    onChanged: (value) {
-                      setState(() {
-                        _bloodGroup = value!;
-                      });
-                    },
-                    items: <String>[
-                      'A+',
-                      'B+',
-                      'O+',
-                      'AB+',
-                      'A-',
-                      'B-',
-                      'O-',
-                      'AB-'
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 16),
-                  Text('Unit Required'),
-                  Slider(
-                    value: _unit.toDouble(),
-                    min: 1,
-                    max: 10,
-                    divisions: 9,
-                    label: _unit.toString(),
-                    onChanged: (double value) {
-                      setState(() {
-                        _unit = value.toInt();
-                      });
-                    },
-                  ),
-                  SizedBox(height: 16),
-                  Text('Date and Time Required'),
-                  ElevatedButton(
-                    onPressed: () async {
-                      final DateTime? dateTime = await showDatePicker(
+                    Text('Female'),
+                  ],
+                ),
+                SizedBox(
+                  height: 16,
+                  width: 16,
+                ),
+                Text('Blood Group'),
+                SizedBox(
+                  width: 8,
+                ),
+                DropdownButton<String>(
+                  value: _bloodGroup,
+                  onChanged: (value) {
+                    setState(() {
+                      _bloodGroup = value!;
+                    });
+                  },
+                  items: <String>[
+                    'A+',
+                    'B+',
+                    'O+',
+                    'AB+',
+                    'A-',
+                    'B-',
+                    'O-',
+                    'AB-'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(height: 16),
+                Text('Unit Required'),
+                Slider(
+                  value: _unit.toDouble(),
+                  min: 1,
+                  max: 10,
+                  divisions: 9,
+                  label: _unit.toString(),
+                  onChanged: (double value) {
+                    setState(() {
+                      _unit = value.toInt();
+                    });
+                  },
+                ),
+                SizedBox(height: 16),
+                Text('Date and Time Required'),
+                ElevatedButton(
+                  onPressed: () async {
+                    final DateTime? dateTime = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100),
+                    );
+                    if (dateTime != null) {
+                      final TimeOfDay? timeOfDay = await showTimePicker(
                         context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2100),
+                        initialTime: TimeOfDay.now(),
                       );
-                      if (dateTime != null) {
-                        final TimeOfDay? timeOfDay = await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                        );
-                        if (timeOfDay != null) {
-                          setState(() {
-                            _dateTime = DateTime(
-                              dateTime.year,
-                              dateTime.month,
-                              dateTime.day,
-                              timeOfDay.hour,
-                              timeOfDay.minute,
-                            );
-                          });
-                        }
+                      if (timeOfDay != null) {
+                        setState(() {
+                          _dateTime = DateTime(
+                            dateTime.year,
+                            dateTime.month,
+                            dateTime.day,
+                            timeOfDay.hour,
+                            timeOfDay.minute,
+                          );
+                        });
                       }
-                    },
-                    child: Text(
-                      _dateTime == null
-                          ? 'Select Date and Time'
-                          : '${_dateTime!.day}/${_dateTime!.month}/${_dateTime!.year} ${_dateTime!.hour}:${_dateTime!.minute}',
-                    ),
+                    }
+                  },
+                  child: Text(
+                    _dateTime == null
+                        ? 'Select Date and Time'
+                        : '${_dateTime!.day}/${_dateTime!.month}/${_dateTime!.year} ${_dateTime!.hour}:${_dateTime!.minute}',
                   ),
-                  SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: _submitForm,
-                    child: const Text('Submit'),
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: _submitForm,
+                  child: const Text('Submit'),
+                ),
+              ],
             ),
           ),
         ),
-   
+      ),
     );
   }
 }

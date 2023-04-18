@@ -59,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontSize: 18.0,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Switch(
                     value: _isDarkModeEnabled,
                     onChanged: (value) {
@@ -110,8 +110,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => PdfList(
-                              userId: widget.user.userid
-                                  , // pass userId as a string
+                              userId:
+                                  widget.user.userid, // pass userId as a string
                             ),
                           ));
                     },

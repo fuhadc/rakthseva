@@ -26,7 +26,6 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    // define the toJson method
     return {
       'username': username,
       'password': password,

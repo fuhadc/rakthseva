@@ -16,4 +16,8 @@ class Notification {
       date: json['date'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {'tittle': title, 'body': body, 'date': date};
+  }
 }

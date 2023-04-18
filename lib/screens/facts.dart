@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class BloodDonationFactsPage extends StatelessWidget {
   final List<String> facts = [
     "One pint of blood can save up to three lives.",
-    "Every two seconds, someone in the United States needs blood.",
+    "Every second, someone in the India needs blood.",
     "Type O-negative blood (red cells) can be transfused to patients of all blood types.",
     "The average adult has about 10 pints of blood in his or her body.",
     "Donating blood is a safe and simple process that takes about an hour.",
@@ -20,7 +20,6 @@ class BloodDonationFactsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Blood Donation Facts'),
         centerTitle: true,
-        backgroundColor: Colors.redAccent,
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
