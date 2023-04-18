@@ -1,53 +1,63 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
-import '../controller/donationhistory.dart';
 import 'package:http/http.dart' as http;
 
-class DonationHistoryPage extends StatefulWidget {
-  final String userId;
+class DonationHistoryScreen extends StatefulWidget {
+  final String user;
 
-  const DonationHistoryPage({required this.userId});
+  DonationHistoryScreen({required this.user});
 
   @override
-  _DonationHistoryPageState createState() => _DonationHistoryPageState();
+  _BloodRequestScreenState createState() => _BloodRequestScreenState();
 }
 
-class _DonationHistoryPageState extends State<DonationHistoryPage> {
-  late List<DonationHistory> _donationHistoryList;
+class _BloodRequestScreenState extends State<DonationHistoryScreen> {
+  Map<String, dynamic> userData = {};
 
-  @override
-  void initState() {
-    super.initState();
-    _loadDonationHistory();
-  }
+  Future<Map<String, dynamic>> _fetchUserData() async {
+    final response = await http
+        .get(Uri.parse('http://192.168.1.11:5555/donate/${widget.user}'));
 
-  Future<void> _loadDonationHistory() async {
-    final response = await http.get(Uri.parse('http://192.168.1.11:5555'));
-    final data = json.decode(response.body);
-
-    setState(() {
-      _donationHistoryList = List<DonationHistory>.from(
-          data.map((item) => DonationHistory.fromJson(item)));
-    });
+    if (response.statusCode == 200) {
+      setState(() {
+        userData = jsonDecode(response.body)['user_data'];
+      });
+      return userData;
+    } else {
+      throw Exception('Failed to fetch data from API');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Donation History'),
+        title: Text('Blood Request Screen'),
       ),
-      body: ListView.builder(
-        itemCount: _donationHistoryList.length,
-        itemBuilder: (context, index) {
-          final donationHistory = _donationHistoryList[index];
-          return ListTile(
-            title: Text(donationHistory.name),
-            subtitle: Text(donationHistory.lastDonationDate),
-            trailing: Text(donationHistory.medicalHistory),
-          );
+      body: FutureBuilder(
+        future: _fetchUserData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: userData.length,
+              itemBuilder: (context, index) {
+                var data = userData.values.toList()[index];
+                return ListTile(
+                  title: Text(data['name'] ?? 'N/A'),
+                  subtitle: Text(data['phone_number'] ?? 'N/A'),
+                  trailing: Text(data['bloodGroup'] ?? 'N/A'),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
         },
       ),
     );

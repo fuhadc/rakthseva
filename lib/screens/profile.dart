@@ -80,8 +80,8 @@ class ProfilePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DonationHistoryPage(
-                                    userId: user.userid,
+                              builder: (context) => DonationHistoryScreen(
+                                    user: user.userid,
                                   )));
                     },
                     child: const Text('Donation History'),
