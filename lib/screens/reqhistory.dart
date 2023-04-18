@@ -44,9 +44,9 @@ class _UserPageState extends State<UserPage> {
               itemBuilder: (context, index) {
                 var data = userData.values.toList()[index];
                 return ListTile(
-                  title: Text(data['name']),
-                  subtitle: Text(data['gender']),
-                  trailing: Text(data['bloodGroup']),
+                  title: Text(data['name'] ?? 'N/A'),
+                  subtitle: Text(data['gender'] ?? 'N/A'),
+                  trailing: Text(data['bloodGroup'] ?? 'N/A'),
                 );
               },
             ),
