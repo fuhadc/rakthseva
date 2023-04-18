@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              DonationForm(user: widget.userData),
+                              DonationForm(user: widget.userData.userid),
                         ));
                   },
                   child: Text('Donate Blood'),

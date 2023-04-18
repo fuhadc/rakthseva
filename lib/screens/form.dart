@@ -37,7 +37,7 @@ class _DonationFormState extends State<DonationForm> {
             'medical_history': _medicalHistoryController.text,
             'last_donation_date': _lastDonationDateController.text,
             'gender': _gender,
-            'useriD': widget.user.userid,
+            'useriD': widget.user,
           }));
 
       if (response.statusCode == 201) {
