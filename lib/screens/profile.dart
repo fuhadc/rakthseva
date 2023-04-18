@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rakthseva/screens/reqhistory.dart';
 import 'certificate.dart';
+import 'donationhistorypage.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   final dynamic user;
 
   const ProfilePage({super.key, required this.user});
-
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  bool _isDarkModeEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,36 +36,12 @@ class _ProfilePageState extends State<ProfilePage> {
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Name'),
-              subtitle: Text(widget.user.username),
+              subtitle: Text(user.username),
             ),
             ListTile(
               leading: const Icon(Icons.email),
               title: const Text('Email'),
-              subtitle: Text(widget.user.email),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  const Text(
-                    'Dark Mode',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  const Spacer(),
-                  Switch(
-                    value: _isDarkModeEnabled,
-                    onChanged: (value) {
-                      setState(() {
-                        _isDarkModeEnabled = value;
-                      });
-                      // TODO: Implement dark mode functionality
-                    },
-                  ),
-                ],
-              ),
+              subtitle: Text(user.email),
             ),
             const SizedBox(height: 16.0),
             const Padding(
@@ -92,6 +63,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RequestHistoryPage()));
                       // navigate to your request page
                     },
                     child: const Text('Your Request'),
@@ -99,7 +74,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(width: 8),
                   const SizedBox(height: 16.0),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DonationHistoryPage(
+                                    userId: user.userid,
+                                  )));
+                    },
                     child: const Text('Donation History'),
                   ),
                   const SizedBox(width: 8),
@@ -110,8 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => PdfList(
-                              userId:
-                                  widget.user.userid, // pass userId as a string
+                              userId: user.userid, // pass userId as a string
                             ),
                           ));
                     },
