@@ -16,7 +16,7 @@ class _BloodRequestScreenState extends State<NotificationPage> {
 
   Future<Map<String, dynamic>> _fetchUserData() async {
     final response = await http.get(
-        Uri.parse('https://rakthaseva.onrender.com/bloodReq/${widget.userId}'));
+        Uri.parse('https://rakthaseva.onrender.com/message/${widget.userId}'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -43,9 +43,9 @@ class _BloodRequestScreenState extends State<NotificationPage> {
               itemBuilder: (context, index) {
                 var data = userData.values.toList()[index];
                 return ListTile(
-                  title: Text(data['name'] ?? 'N/A'),
-                  subtitle: Text(data['gender'] ?? 'N/A'),
-                  trailing: Text(data['bloodGroup'] ?? 'N/A'),
+                  title: Text(data['title'] ?? 'N/A'),
+                  subtitle: Text(data['body'] ?? 'N/A'),
+                  trailing: Text(data['date'] ?? 'N/A'),
                 );
               },
             );
