@@ -19,7 +19,7 @@ class _BloodStockPageState extends State<BloodStockPage> {
 
   Future<void> _fetchBloodStockData() async {
     final response =
-        await http.get(Uri.parse('http://192.168.1.11:5555/bloodstock'));
+        await http.get(Uri.parse('https://rakthaseva.onrender.com/bloodstock'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body)['bloodStockData'];
       setState(() {

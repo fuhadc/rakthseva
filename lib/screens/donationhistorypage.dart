@@ -15,8 +15,8 @@ class _BloodRequestScreenState extends State<DonationHistoryScreen> {
   Map<String, dynamic> userData = {};
 
   Future<Map<String, dynamic>> _fetchUserData() async {
-    final response = await http
-        .get(Uri.parse('http://192.168.1.11:5555/donate/${widget.user}'));
+    final response = await http.get(
+        Uri.parse('https://rakthaseva.onrender.com/donate/${widget.user}'));
 
     if (response.statusCode == 200) {
       setState(() {

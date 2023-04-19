@@ -31,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.1.11:5555/register'),
+        Uri.parse('https://rakthaseva.onrender.com/register'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
         },
