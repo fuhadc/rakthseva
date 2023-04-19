@@ -20,7 +20,7 @@ class _PdfListState extends State<PdfList> {
 
   Future<List<Pdf>> _fetchPdfList() async {
     final response = await http.get(Uri.parse(
-        'https://rakthaseva.onrender.com/pdfs?userId=${widget.userId}'));
+        'https://rakthaseva.onrender.com/Certificate/${widget.userId}'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as List;
       return data.map((json) => Pdf.fromJson(json)).toList();
