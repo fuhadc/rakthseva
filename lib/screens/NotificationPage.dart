@@ -1,47 +1,30 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class NotificationPage extends StatefulWidget {
-  final String userId;
+  late final String userId;
 
-  const NotificationPage({required this.userId});
+  NotificationPage({required String userId});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _NotificationPageState createState() => _NotificationPageState();
+  _BloodRequestScreenState createState() => _BloodRequestScreenState();
 }
 
-class _NotificationPageState extends State<NotificationPage> {
-  List<Notification> _notifications = [];
-  bool _isLoading = false;
+class _BloodRequestScreenState extends State<NotificationPage> {
+  Map<String, dynamic> userData = {};
 
-  @override
-  void initState() {
-    super.initState();
-    _fetchNotifications();
-  }
-
-  Future<void> _fetchNotifications() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    final url = Uri.parse(
-        'https://rakthaseva.onrender.com/api/notifications?userId=${widget.userId}');
-    final response = await http.get(url);
+  Future<Map<String, dynamic>> _fetchUserData() async {
+    final response = await http.get(
+        Uri.parse('https://rakthaseva.onrender.com/bloodReq/${widget.userId}'));
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final List<dynamic> notificationsJson = data['notifications'];
-      final notifications =
-          notificationsJson.map((json) => Notification.fromJson(json)).toList();
       setState(() {
-        _notifications = notifications;
-        _isLoading = false;
+        userData = jsonDecode(response.body)['user_data'];
       });
+      return userData;
     } else {
-      throw Exception('Failed to fetch notifications');
+      throw Exception('Failed to fetch data from API');
     }
   }
 
@@ -49,48 +32,34 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notifications'),
+        title: Text('Notification Page Screen'),
       ),
-      body: _isLoading
-          ? const Center(
+      body: FutureBuilder(
+        future: _fetchUserData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: userData.length,
+              itemBuilder: (context, index) {
+                var data = userData.values.toList()[index];
+                return ListTile(
+                  title: Text(data['name'] ?? 'N/A'),
+                  subtitle: Text(data['gender'] ?? 'N/A'),
+                  trailing: Text(data['bloodGroup'] ?? 'N/A'),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            return Center(
               child: CircularProgressIndicator(),
-            )
-          : _notifications.isEmpty
-              ? const Center(
-                  child: Text('No notifications'),
-                )
-              : ListView.builder(
-                  itemCount: _notifications.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final notification = _notifications[index];
-                    return ListTile(
-                      leading: const Icon(Icons.notification_important),
-                      title: Text(notification.title),
-                      subtitle: Text(notification.body),
-                      trailing: Text(notification.date),
-                    );
-                  },
-                ),
-    );
-  }
-}
-
-class Notification {
-  final String title;
-  final String body;
-  final String date;
-
-  Notification({
-    required this.title,
-    required this.body,
-    required this.date,
-  });
-
-  factory Notification.fromJson(Map<String, dynamic> json) {
-    return Notification(
-      title: json['title'],
-      body: json['body'],
-      date: json['date'],
+            );
+          }
+        },
+      ),
     );
   }
 }
