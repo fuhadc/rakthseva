@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class NotificationPage extends StatefulWidget {
-  late final String userId;
+  final String userId;
 
-  NotificationPage({required String userId});
+  NotificationPage({required this.userId});
 
   @override
   _BloodRequestScreenState createState() => _BloodRequestScreenState();

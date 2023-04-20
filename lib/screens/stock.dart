@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+
+import '../services/bloodapi.dart';
 
 class BloodStockPage extends StatefulWidget {
-  const BloodStockPage({Key? key}) : super(key: key);
   @override
   _BloodStockPageState createState() => _BloodStockPageState();
 }
 
 class _BloodStockPageState extends State<BloodStockPage> {
-  List<Map<String, dynamic>> _bloodStockData = [];
+  Map<String, dynamic> _bloodStock = {};
 
   @override
   void initState() {
     super.initState();
-    _fetchBloodStockData();
+    _fetchBloodStock();
   }
 
-  Future<void> _fetchBloodStockData() async {
-    final response =
-        await http.get(Uri.parse('https://rakthaseva.onrender.com/bloodstock'));
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body)['bloodStockData'];
+  Future<void> _fetchBloodStock() async {
+    try {
+      final bloodStock = await BloodApi.getBloodStock();
       setState(() {
-        _bloodStockData = List<Map<String, dynamic>>.from(data);
+        _bloodStock = bloodStock;
       });
-    } else {
-      throw Exception('Failed to load blood stock data');
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -34,44 +31,49 @@ class _BloodStockPageState extends State<BloodStockPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Blood Availability'),
+        title: Text('Blood Stock'),
       ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: 444,
-          width: 444,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: const [
-                DataColumn(label: Text('Blood Group')),
-                DataColumn(label: Text('Whole Blood')),
-                DataColumn(label: Text('Packed Cells')),
-                DataColumn(label: Text('Frozen Plasma')),
-                DataColumn(label: Text('Platelet')),
+      body: _bloodStock.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: const EdgeInsets.all(8),
+              children: <Widget>[
+                _buildTableHeader(),
+                _buildTableRow('O+', _bloodStock['-NTR-wNIbeb26-sfWRkl']),
+                // Add more rows for other blood groups
               ],
-              rows: List<DataRow>.generate(
-                _bloodStockData.length,
-                (index) {
-                  return DataRow(
-                    cells: [
-                      DataCell(Text(
-                          _bloodStockData[index]['bloodGroup'].toString())),
-                      DataCell(Text(
-                          _bloodStockData[index]['wholeBlood'].toString())),
-                      DataCell(Text(
-                          _bloodStockData[index]['packedCells'].toString())),
-                      DataCell(Text(
-                          _bloodStockData[index]['frozenPlasma'].toString())),
-                      DataCell(
-                          Text(_bloodStockData[index]['platelet'].toString())),
-                    ],
-                  );
-                },
-              ),
             ),
-          ),
-        ),
+    );
+  }
+
+  Widget _buildTableHeader() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: const [
+          Text('Blood Group'),
+          Text('Whole Blood'),
+          Text('Packed Cells'),
+          Text('Frozen Plasma'),
+          Text('Platelets'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTableRow(String bloodGroup, Map<String, dynamic> data) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(bloodGroup),
+          Text(data['whole_blood']),
+          Text(data['packed_cells']),
+          Text(data['frozen_plasma']),
+          Text(data['platelets']),
+        ],
       ),
     );
   }
