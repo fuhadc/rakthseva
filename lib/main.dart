@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rakthseva/widget/register.dart';
 
+import 'initstate.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const RegisterPage(),
+      home: SplashScreen(),
       //  HomePage(
       //   userData: usr,
       // ),
