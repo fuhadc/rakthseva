@@ -8,58 +8,47 @@ class NotificationPage extends StatefulWidget {
   NotificationPage({required this.userId});
 
   @override
-  _BloodRequestScreenState createState() => _BloodRequestScreenState();
+  _NotificationPageState createState() => _NotificationPageState();
 }
 
-class _BloodRequestScreenState extends State<NotificationPage> {
-  Map<String, dynamic> userData = {};
+class _NotificationPageState extends State<NotificationPage> {
+  List<Map<String, dynamic>> _notifications = [];
 
-  Future<Map<String, dynamic>> _fetchUserData() async {
-    final response = await http.get(
-        Uri.parse('https://rakthaseva.onrender.com/message/${widget.userId}'));
+  Future<void> _fetchNotifications() async {
+    final url = 'https://rakthaseva.onrender.com/message/${widget.userId}';
+    final response = await http.get(Uri.parse(url));
+    final data = json.decode(response.body);
 
-    if (response.statusCode == 200) {
-      setState(() {
-        userData = jsonDecode(response.body)['user_data'];
-      });
-      return userData;
-    } else {
-      throw Exception('Failed to fetch data from API');
-    }
+    setState(() {
+      _notifications = List<Map<String, dynamic>>.from(data['message'].values);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchNotifications();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notification Page Screen'),
+        title: Text('Notifications'),
       ),
-      body: FutureBuilder(
-        future: _fetchUserData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: userData.length,
+      body: _notifications.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: _notifications.length,
               itemBuilder: (context, index) {
-                var data = userData.values.toList()[index];
+                final notification = _notifications[index];
                 return ListTile(
-                  title: Text(data['title'] ?? 'N/A'),
-                  subtitle: Text(data['body'] ?? 'N/A'),
-                  trailing: Text(data['date'] ?? 'N/A'),
+                  title: Text(notification['title']),
+                  subtitle: Text(notification['body']),
+                  trailing: Text(notification['date']),
                 );
               },
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+            ),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class BloodApi {
-  static const baseUrl = 'http://127.0.0.1:5000/blooddata';
+  static const baseUrl = 'https://rakthaseva.onrender.com/blooddata';
 
   static Future<Map<String, dynamic>> getBloodStock() async {
     final response = await http.get(Uri.parse('$baseUrl'));

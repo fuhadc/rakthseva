@@ -3,82 +3,63 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
 import '../controller/pdf.dart';
 
-class PdfList extends StatefulWidget {
+class PdfList extends StatelessWidget {
   final String userId;
 
-  PdfList({required this.userId});
-
-  @override
-  _PdfListState createState() => _PdfListState();
-}
-
-class _PdfListState extends State<PdfList> {
-  List<Pdf> _pdfList = [];
-
-  Future<List<Pdf>> _fetchPdfList() async {
+  const PdfList({super.key, required this.userId});
+  Future<Map<String, dynamic>> _fetchUserData() async {
     final response = await http.get(Uri.parse(
-        'https://rakthaseva.onrender.com/Certificate/${widget.userId}'));
+        'https://rakthaseva.onrender.com/Certificate/${userId}'));
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body) as List;
-      return data.map((json) => Pdf.fromJson(json)).toList();
+      return jsonDecode(response.body);
     } else {
-      throw Exception('Failed to fetch PDF list');
+      throw Exception('Failed to fetch user data');
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchPdfList().then((pdfList) {
-      setState(() {
-        _pdfList = pdfList;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PDF List'),
+        title: Text('Certificates'),
       ),
-      body: _pdfList.isEmpty
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-              itemCount: _pdfList.length,
-              itemBuilder: (context, index) {
-                final pdf = _pdfList[index];
+      body: FutureBuilder(
+        future: _fetchUserData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Failed to fetch user data'));
+          } else {
+            Map<String, dynamic> userData = snapshot.data;
+            return ListView.builder(
+              itemCount: userData['user_data'].length,
+              itemBuilder: (BuildContext context, int index) {
+                String certificateName =
+                    userData['user_data'].values.toList()[index]['name'];
+                String certificateUrl =
+                    userData['user_data'].values.toList()[index]['url'];
+
                 return ListTile(
-                  title: Text(pdf.name),
-                  trailing: IconButton(
-                    icon: Icon(Icons.download),
-                    onPressed: () {
-                      downloadFile(pdf.url, pdf.name);
-                    },
-                  ),
+                  title: Text(certificateName),
+                  onTap: () async {
+                    await FlutterDownloader.enqueue(
+                      url: certificateUrl,
+                      savedDir: '/path/to/download/directory/',
+                      showNotification: true,
+                      openFileFromNotification: true,
+                    );
+                  },
                 );
               },
-            ),
+            );
+          }
+        },
+      ),
     );
-  }
-}
-
-Future<void> downloadFile(String url, String filename) async {
-  HttpClient httpClient = HttpClient();
-  File file = File(filename);
-
-  try {
-    HttpClientRequest request = await httpClient.getUrl(Uri.parse(url));
-    HttpClientResponse response = await request.close();
-    await response.pipe(file.openWrite());
-  } catch (error) {
-    print(error);
-  } finally {
-    httpClient.close();
   }
 }
