@@ -49,15 +49,17 @@ class _BloodStockPageState extends State<BloodStockPage> {
   Widget _buildTableHeader() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: const [
-          Text('Blood Group'),
-          Text('Whole Blood'),
-          Text('Packed Cells'),
-          Text('Frozen Plasma'),
-          Text('Platelets'),
-        ],
+      child: Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: const [
+            Text('Blood Group'),
+            Text('Whole Blood'),
+            Text('Packed Cells'),
+            Text('Frozen Plasma'),
+            Text('Platelets'),
+          ],
+        ),
       ),
     );
   }
