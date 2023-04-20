@@ -49,7 +49,7 @@ class _BloodStockPageState extends State<BloodStockPage> {
   Widget _buildTableHeader() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Expanded(
+      child: Flexible(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
@@ -67,15 +67,17 @@ class _BloodStockPageState extends State<BloodStockPage> {
   Widget _buildTableRow(String bloodGroup, Map<String, dynamic> data) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(bloodGroup),
-          Text(data['whole_blood']),
-          Text(data['packed_cells']),
-          Text(data['frozen_plasma']),
-          Text(data['platelets']),
-        ],
+      child: Flexible(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(bloodGroup),
+            Text(data['whole_blood']),
+            Text(data['packed_cells']),
+            Text(data['frozen_plasma']),
+            Text(data['platelets']),
+          ],
+        ),
       ),
     );
   }
