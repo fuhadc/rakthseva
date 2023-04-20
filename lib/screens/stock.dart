@@ -49,7 +49,7 @@ class _BloodStockPageState extends State<BloodStockPage> {
   Widget _buildTableHeader() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Flexible(
+      child: SingleChildScrollView(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
@@ -67,7 +67,7 @@ class _BloodStockPageState extends State<BloodStockPage> {
   Widget _buildTableRow(String bloodGroup, Map<String, dynamic> data) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Flexible(
+      child: SingleChildScrollView(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
