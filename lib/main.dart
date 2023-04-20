@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rakthseva/widget/register.dart';
-
+import 'package:flutter/services.dart';
 import 'initstate.dart';
 
-void main() {
+void main() async{
+
   runApp(const MyApp());
 }
 
